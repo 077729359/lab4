@@ -189,16 +189,13 @@ public:
     void updateData(double cartTotal) {
         visits++; // Chemarea operatorului supraincarcat ++
         totalSpent += cartTotal;
-
         vector<string> lines;
         ifstream infile("users.txt");
-        string line;
-        bool userExists = false;
+        string line; bool userExists = false;
         while (getline(infile, line)) {
             stringstream ss(line);
             string fileIdnp, fileName;
-            int fileVisits;
-            double fileTotalSpent;
+            int fileVisits; double fileTotalSpent;
             ss >> fileIdnp >> fileName >> fileVisits >> fileTotalSpent;
             if (fileIdnp == idnp) {
                 line = idnp + " " + name + " " + to_string(visits) + " " + to_string(totalSpent);
@@ -207,18 +204,13 @@ public:
             lines.push_back(line);
         }
         infile.close();
-
         if (!userExists) {
             line = idnp + " " + name + " " + to_string(visits) + " " + to_string(totalSpent);
             lines.push_back(line);
         }
-
         ofstream outfile("users.txt");
-        for (const auto& ln : lines) {
-            outfile << ln << endl;
-        }
+        for (const auto& ln : lines) { outfile << ln << endl; }
         outfile.close();
-
         if (totalSpent > 500000) {
             ofstream inviteFile("invitatie.txt");
             inviteFile << "Drag client " << name << ",\n\n"
@@ -228,24 +220,21 @@ public:
             inviteFile.close();
             cout << "\nInvitație VIP generată pentru clientul " << name << ".\n";
         }
-    }
-
+    };
     bool eligibleForDiscount() const {
         return totalSpent > 4000 && visits > 5;
-    }
-
+    };
     // Operator overloading << pentru afisarea datelor despre utilizator
     friend ostream& operator<<(ostream& os, const User& user) {
         os << "Utilizator: " << user.name << ", IDNP: " << user.idnp << ", Vizite: " << user.visits
            << ", Total Cheltuit: " << fixed << setprecision(2) << user.totalSpent << " lei";
         return os;
-    }
-
+    };
     // Operator overloading ++ pentru incrementarea numarului de vizite
     User& operator++() {
         visits++;
         return *this;
-    }
+    };
 };
 
 class Executor {
@@ -258,7 +247,7 @@ public:
         cout << "4. Finalizare comanda (Plata cu cardul)\n";
         cout << "5. Iesire\n";
         cout << "Selectati o optiune: ";
-    }
+    };
 
     bool processPayment(double totalAmount) {
         string cardNumber, expiryDate, cvv;
@@ -343,14 +332,14 @@ public:
             cout << (i + 1) << ". ";
             products[i]->display();
         }
-    }
+    };
 
     void getUserDetails(string& name, string& idnp) {
         cout << "Introduceti numele: ";
         getline(cin, name);
         cout << "Introduceti IDNP-ul: ";
         getline(cin, idnp);
-    }
+    };
 
     void handlePromoCode(string& promoCode, bool& promoApplied, Cart& cart) {
         cout << "Doriti sa introduceti un cod promotional? (da/nu): ";
@@ -370,7 +359,7 @@ public:
                 cout << "Cod promotional invalid.\n";
             }
         }
-    }
+    };
 
     Product* validateProductChoice(int choice, const vector<Product*>& products) {
         if (choice < 1 || choice > products.size()) {
