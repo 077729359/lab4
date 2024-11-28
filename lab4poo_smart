@@ -248,129 +248,159 @@ public:
     }
 };
 
-void displayMenu() {
-    cout << "\n--- Meniu Magazin de Lampi Electrice ---\n";
-    cout << "1. Vizualizare produse\n";
-    cout << "2. Adaugare produs in cos\n";
-    cout << "3. Vizualizare cos\n";
-    cout << "4. Finalizare comanda (Plata cu cardul)\n";
-    cout << "5. Iesire\n";
-    cout << "Selectati o optiune: ";
-}
+    void displayMenu() {
+        cout << "\n--- Meniu Magazin de Lampi Electrice ---\n";
+        cout << "1. Vizualizare produse\n";
+        cout << "2. Adaugare produs in cos\n";
+        cout << "3. Vizualizare cos\n";
+        cout << "4. Finalizare comanda (Plata cu cardul)\n";
+        cout << "5. Iesire\n";
+        cout << "Selectati o optiune: ";
+    }
 
-bool processPayment(double totalAmount) {
-    string cardNumber, expiryDate, cvv;
-    cout << "Introduceti numarul cardului (16 cifre): ";
-    cin >> cardNumber;
-    cout << "Introduceti data expirarii (LL/AA): ";
-    cin >> expiryDate;
-    cout << "Introduceti CVV: ";
-    cin >> cvv;
+    bool processPayment(double totalAmount) {
+        string cardNumber, expiryDate, cvv;
+        cout << "Introduceti numarul cardului (16 cifre): ";
+        cin >> cardNumber;
+        cout << "Introduceti data expirarii (LL/AA): ";
+        cin >> expiryDate;
+        cout << "Introduceti CVV: ";
+        cin >> cvv;
 
-    if (cardNumber.length() == 16 && expiryDate.length() == 5 && cvv.length() == 3) {
-        cout << "\nPlata de " << fixed << setprecision(2) << totalAmount << " lei efectuata cu succes.\n";
-        return true;
-    } else {
-        cout << "Date card invalide.\n";
-        return false;
+        if (cardNumber.length() == 16 && expiryDate.length() == 5 && cvv.length() == 3) {
+            cout << "\nPlata de " << fixed << setprecision(2) << totalAmount << " lei efectuata cu succes.\n";
+            return true;
+        } else {
+            cout << "Date card invalide.\n";
+            return false;
+        }
+    };
+
+
+void addTableLampsToCart(vector<TableLamp>& tableLamps) {
+
+    tableLamps.push_back(TableLamp("Veioza_Modern", 299.99, 10)),
+    tableLamps.push_back(TableLamp("Veioza_Clasic", 249.99, 10)),
+    tableLamps.push_back(TableLamp("Veioza_Birou_LED", 399.99, 10)),
+    tableLamps.push_back(TableLamp("Veioza_Vintage", 349.99, 10)),
+    tableLamps.push_back(TableLamp("Veioza_Smart", 499.99, 10)),
+    tableLamps.push_back(TableLamp("Veioza_Copii", 199.99, 10)),
+    tableLamps.push_back(TableLamp("Veioza_Dormitor", 279.99, 10)),
+    tableLamps.push_back(TableLamp("Veioza_Studio", 329.99, 10)),
+    tableLamps.push_back(TableLamp("Veioza_Artistica", 449.99, 10)),
+    tableLamps.push_back(TableLamp("Veioza_Minimalist", 289.99, 10));
+};
+
+void addCeilingLampsToCart(vector<CeilingLamp>& ceilingLamps) {
+
+    ceilingLamps.push_back( CeilingLamp("Lustra_Cristal", 999.99, 10)),
+    ceilingLamps.push_back(CeilingLamp("Lustra_Moderna", 799.99, 10)),
+   ceilingLamps.push_back(CeilingLamp("Candelabru_Elegant", 1299.99, 10)),
+   ceilingLamps.push_back( CeilingLamp("Plafoniera_LED", 599.99, 10)),
+    ceilingLamps.push_back(CeilingLamp("Lustra_Industrial", 899.99, 10)),
+    ceilingLamps.push_back(CeilingLamp("Lustra_Vintage", 849.99, 10)),
+    ceilingLamps.push_back(CeilingLamp("Lustra_Smart", 1199.99, 10)),
+    ceilingLamps.push_back(CeilingLamp("Plafoniera_Baie", 399.99, 10)),
+    ceilingLamps.push_back(CeilingLamp("Lustra_Living", 949.99, 10)),
+    ceilingLamps.push_back( CeilingLamp("Lustra_Minimalist", 699.99, 10));
+};
+
+void addWallLampsToCart(vector<WallLamp>& wallLamps) {
+
+    wallLamps.push_back(  WallLamp("Aplica_Moderna", 199.99, 10)),
+    wallLamps.push_back( WallLamp("Aplica_LED", 249.99, 10)),
+   wallLamps.push_back( WallLamp("Aplica_Clasica", 179.99, 10)),
+    wallLamps.push_back( WallLamp("Aplica_Vintage", 229.99, 10)),
+    wallLamps.push_back( WallLamp("Aplica_Industrial", 259.99, 10)),
+    wallLamps.push_back(WallLamp("Aplica_Exterior", 299.99, 10)),
+    wallLamps.push_back(  WallLamp("Aplica_Baie", 189.99, 10)),
+    wallLamps.push_back(WallLamp("Aplica_Oglinda", 219.99, 10)),
+    wallLamps.push_back(WallLamp("Aplica_Smart", 349.99, 10)),
+    wallLamps.push_back(   WallLamp("Aplica_Minimalist", 209.99, 10));
+};
+
+void displayProductsByCategory( vector<Product*> products, int totalProducts) {
+    cout << "\nProduse disponibile:\n\n";
+
+    int categorySize = totalProducts / 3;
+
+    cout << "VEIOZE:\n";
+    for (int i = 0; i < categorySize; i++) {
+        cout << (i + 1) << ". ";
+        products[i]->display();
+    }
+
+    cout << "\nLAMPI DE TAVAN:\n";
+    for (int i = categorySize; i < 2 * categorySize; i++) {
+        cout << (i + 1) << ". ";
+        products[i]->display();
+    }
+
+    cout << "\nLAMPI DE PERETE:\n";
+    for (int i = 2 * categorySize; i < totalProducts; i++) {
+        cout << (i + 1) << ". ";
+        products[i]->display();
     }
 }
 
+void getUserDetails(string& name, string& idnp) {
+    cout << "Introduceti numele: ";
+    getline(cin, name);
+    cout << "Introduceti IDNP-ul: ";
+    getline(cin, idnp);
+}
 
-    
+void handlePromoCode(string& promoCode, bool& promoApplied, Cart& cart) {
+    cout << "Doriti sa introduceti un cod promotional? (da/nu): ";
+    string response;
+    cin >> response;
+
+    if (response == "da") {
+        cout << "Introduceti codul promotional: ";
+        cin >> promoCode;
+
+        // Verificăm dacă codul promoțional este valid
+        if (promoCode == "PROMO2024") {
+            cart.applyDiscount(0.03); // aplicăm reducerea de 3%
+            promoApplied = true;
+            cout << "Cod promotional valid! S-a aplicat o reducere de 3%.\n";
+        } else {
+            cout << "Cod promotional invalid.\n";
+        }
+    }
+}
 
 int main() {
-    vector<TableLamp> tableLamps = {
-        TableLamp("Veioza_Modern", 299.99, 10),
-        TableLamp("Veioza_Clasic", 249.99, 10),
-        TableLamp("Veioza_Birou_LED", 399.99, 10),
-        TableLamp("Veioza_Vintage", 349.99, 10),
-        TableLamp("Veioza_Smart", 499.99, 10),
-        TableLamp("Veioza_Copii", 199.99, 10),
-        TableLamp("Veioza_Dormitor", 279.99, 10),
-        TableLamp("Veioza_Studio", 329.99, 10),
-        TableLamp("Veioza_Artistica", 449.99, 10),
-        TableLamp("Veioza_Minimalist", 289.99, 10)
-    };
-
-    vector<CeilingLamp> ceilingLamps = {
-        CeilingLamp("Lustra_Cristal", 999.99, 10),
-        CeilingLamp("Lustra_Moderna", 799.99, 10),
-        CeilingLamp("Candelabru_Elegant", 1299.99, 10),
-        CeilingLamp("Plafoniera_LED", 599.99, 10),
-        CeilingLamp("Lustra_Industrial", 899.99, 10),
-        CeilingLamp("Lustra_Vintage", 849.99, 10),
-        CeilingLamp("Lustra_Smart", 1199.99, 10),
-        CeilingLamp("Plafoniera_Baie", 399.99, 10),
-        CeilingLamp("Lustra_Living", 949.99, 10),
-        CeilingLamp("Lustra_Minimalist", 699.99, 10)
-    };
-
-    vector<WallLamp> wallLamps = {
-        WallLamp("Aplica_Moderna", 199.99, 10),
-        WallLamp("Aplica_LED", 249.99, 10),
-        WallLamp("Aplica_Clasica", 179.99, 10),
-        WallLamp("Aplica_Vintage", 229.99, 10),
-        WallLamp("Aplica_Industrial", 259.99, 10),
-        WallLamp("Aplica_Exterior", 299.99, 10),
-        WallLamp("Aplica_Baie", 189.99, 10),
-        WallLamp("Aplica_Oglinda", 219.99, 10),
-        WallLamp("Aplica_Smart", 349.99, 10),
-        WallLamp("Aplica_Minimalist", 209.99, 10)
-    };
-
+    vector<TableLamp> tableLamps; addTableLampsToCart(tableLamps);
+    vector<CeilingLamp> ceilingLamps; addCeilingLampsToCart(ceilingLamps);
+    vector<WallLamp> wallLamps; addWallLampsToCart( wallLamps);
     vector<Product*> products;
 
     for(auto& lamp : tableLamps) {
         products.push_back(&lamp);
     }
-
     for(auto& lamp : ceilingLamps) {
         products.push_back(&lamp);
     }
-
     for(auto& lamp : wallLamps) {
         products.push_back(&lamp);
     }
 
-    string name, idnp;
-    cout << "Introduceti numele: ";
-    getline(cin, name);
-    cout << "Introduceti IDNP-ul: ";
-    getline(cin, idnp);
-
-    User user(name, idnp);
-    user.loadData();
+    string name, idnp; getUserDetails(name, idnp);
+    User user(name, idnp); user.loadData();
 
     Cart cart;
-    int option;
 
     bool discountCard = user.eligibleForDiscount();
     if (discountCard) {
         cout << "Felicitari! Va calificati pentru un card de reducere cu 15% pentru cumparaturile viitoare.\n";
     }
-
-    do {
-        displayMenu();
+ int option;
+    do {displayMenu();
         cin >> option;
         switch (option) {
             case 1:
-                cout << "\nProduse disponibile:\n\n";
-                cout << "VEIOZE:\n";
-                for (int i = 0; i < 10; i++) {
-                    cout << (i+1) << ". ";
-                    products[i]->display();
-                }
-                cout << "\nLAMPI DE TAVAN:\n";
-                for (int i = 10; i < 20; i++) {
-                    cout << (i+1) << ". ";
-                    products[i]->display();
-                }
-                cout << "\nLAMPI DE PERETE:\n";
-                for (int i = 20; i < 30; i++) {
-                    cout << (i+1) << ". ";
-                    products[i]->display();
-                }
+                displayProductsByCategory(products, 30);
                 break;
 
             case 2: {
@@ -412,23 +442,7 @@ int main() {
                 }
 
                 string promoCode;
-                bool promoApplied = false;
-                cout << "Doriti sa introduceti un cod promotional? (da/nu): ";
-                string response;
-                cin >> response;
-
-                if (response == "da") {
-                    cout << "Introduceti codul promotional: ";
-                    cin >> promoCode;
-                    // Verificăm dacă codul promoțional este valid (în acest caz "PROMO2024")
-                    if (promoCode == "PROMO2024") {
-                        cart.applyDiscount(0.03); // aplicăm reducerea de 3%
-                        promoApplied = true;
-                        cout << "Cod promotional valid! S-a aplicat o reducere de 3%.\n";
-                    } else {
-                        cout << "Cod promotional invalid.\n";
-                    }
-                }
+                bool promoApplied = false; handlePromoCode(promoCode, promoApplied, cart);
 
                 if (discountCard && !promoApplied) {
                     cart.applyDiscount(0.15);
