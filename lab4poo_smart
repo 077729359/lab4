@@ -248,6 +248,8 @@ public:
     }
 };
 
+class Executor {
+public:
     void displayMenu() {
         cout << "\n--- Meniu Magazin de Lampi Electrice ---\n";
         cout << "1. Vizualizare produse\n";
@@ -277,178 +279,179 @@ public:
     };
 
 
-void addTableLampsToCart(vector<TableLamp>& tableLamps) {
+    void addTableLampsToCart(vector<TableLamp>& tableLamps) {
 
-    tableLamps.push_back(TableLamp("Veioza_Modern", 299.99, 10)),
-    tableLamps.push_back(TableLamp("Veioza_Clasic", 249.99, 10)),
-    tableLamps.push_back(TableLamp("Veioza_Birou_LED", 399.99, 10)),
-    tableLamps.push_back(TableLamp("Veioza_Vintage", 349.99, 10)),
-    tableLamps.push_back(TableLamp("Veioza_Smart", 499.99, 10)),
-    tableLamps.push_back(TableLamp("Veioza_Copii", 199.99, 10)),
-    tableLamps.push_back(TableLamp("Veioza_Dormitor", 279.99, 10)),
-    tableLamps.push_back(TableLamp("Veioza_Studio", 329.99, 10)),
-    tableLamps.push_back(TableLamp("Veioza_Artistica", 449.99, 10)),
-    tableLamps.push_back(TableLamp("Veioza_Minimalist", 289.99, 10));
-};
+        tableLamps.push_back(TableLamp("Veioza_Modern", 299.99, 10)),
+        tableLamps.push_back(TableLamp("Veioza_Clasic", 249.99, 10)),
+        tableLamps.push_back(TableLamp("Veioza_Birou_LED", 399.99, 10)),
+        tableLamps.push_back(TableLamp("Veioza_Vintage", 349.99, 10)),
+        tableLamps.push_back(TableLamp("Veioza_Smart", 499.99, 10)),
+        tableLamps.push_back(TableLamp("Veioza_Copii", 199.99, 10)),
+        tableLamps.push_back(TableLamp("Veioza_Dormitor", 279.99, 10)),
+        tableLamps.push_back(TableLamp("Veioza_Studio", 329.99, 10)),
+        tableLamps.push_back(TableLamp("Veioza_Artistica", 449.99, 10)),
+        tableLamps.push_back(TableLamp("Veioza_Minimalist", 289.99, 10));
+    };
 
-void addCeilingLampsToCart(vector<CeilingLamp>& ceilingLamps) {
+    void addCeilingLampsToCart(vector<CeilingLamp>& ceilingLamps) {
 
-    ceilingLamps.push_back( CeilingLamp("Lustra_Cristal", 999.99, 10)),
-    ceilingLamps.push_back(CeilingLamp("Lustra_Moderna", 799.99, 10)),
-   ceilingLamps.push_back(CeilingLamp("Candelabru_Elegant", 1299.99, 10)),
-   ceilingLamps.push_back( CeilingLamp("Plafoniera_LED", 599.99, 10)),
-    ceilingLamps.push_back(CeilingLamp("Lustra_Industrial", 899.99, 10)),
-    ceilingLamps.push_back(CeilingLamp("Lustra_Vintage", 849.99, 10)),
-    ceilingLamps.push_back(CeilingLamp("Lustra_Smart", 1199.99, 10)),
-    ceilingLamps.push_back(CeilingLamp("Plafoniera_Baie", 399.99, 10)),
-    ceilingLamps.push_back(CeilingLamp("Lustra_Living", 949.99, 10)),
-    ceilingLamps.push_back( CeilingLamp("Lustra_Minimalist", 699.99, 10));
-};
+        ceilingLamps.push_back( CeilingLamp("Lustra_Cristal", 999.99, 10)),
+        ceilingLamps.push_back(CeilingLamp("Lustra_Moderna", 799.99, 10)),
+       ceilingLamps.push_back(CeilingLamp("Candelabru_Elegant", 1299.99, 10)),
+       ceilingLamps.push_back( CeilingLamp("Plafoniera_LED", 599.99, 10)),
+        ceilingLamps.push_back(CeilingLamp("Lustra_Industrial", 899.99, 10)),
+        ceilingLamps.push_back(CeilingLamp("Lustra_Vintage", 849.99, 10)),
+        ceilingLamps.push_back(CeilingLamp("Lustra_Smart", 1199.99, 10)),
+        ceilingLamps.push_back(CeilingLamp("Plafoniera_Baie", 399.99, 10)),
+        ceilingLamps.push_back(CeilingLamp("Lustra_Living", 949.99, 10)),
+        ceilingLamps.push_back( CeilingLamp("Lustra_Minimalist", 699.99, 10));
+    };
 
-void addWallLampsToCart(vector<WallLamp>& wallLamps) {
+    void addWallLampsToCart(vector<WallLamp>& wallLamps) {
 
-    wallLamps.push_back(  WallLamp("Aplica_Moderna", 199.99, 10)),
-    wallLamps.push_back( WallLamp("Aplica_LED", 249.99, 10)),
-   wallLamps.push_back( WallLamp("Aplica_Clasica", 179.99, 10)),
-    wallLamps.push_back( WallLamp("Aplica_Vintage", 229.99, 10)),
-    wallLamps.push_back( WallLamp("Aplica_Industrial", 259.99, 10)),
-    wallLamps.push_back(WallLamp("Aplica_Exterior", 299.99, 10)),
-    wallLamps.push_back(  WallLamp("Aplica_Baie", 189.99, 10)),
-    wallLamps.push_back(WallLamp("Aplica_Oglinda", 219.99, 10)),
-    wallLamps.push_back(WallLamp("Aplica_Smart", 349.99, 10)),
-    wallLamps.push_back(   WallLamp("Aplica_Minimalist", 209.99, 10));
-};
+        wallLamps.push_back(  WallLamp("Aplica_Moderna", 199.99, 10)),
+        wallLamps.push_back( WallLamp("Aplica_LED", 249.99, 10)),
+       wallLamps.push_back( WallLamp("Aplica_Clasica", 179.99, 10)),
+        wallLamps.push_back( WallLamp("Aplica_Vintage", 229.99, 10)),
+        wallLamps.push_back( WallLamp("Aplica_Industrial", 259.99, 10)),
+        wallLamps.push_back(WallLamp("Aplica_Exterior", 299.99, 10)),
+        wallLamps.push_back(  WallLamp("Aplica_Baie", 189.99, 10)),
+        wallLamps.push_back(WallLamp("Aplica_Oglinda", 219.99, 10)),
+        wallLamps.push_back(WallLamp("Aplica_Smart", 349.99, 10)),
+        wallLamps.push_back(   WallLamp("Aplica_Minimalist", 209.99, 10));
+    };
 
-void displayProductsByCategory( vector<Product*> products, int totalProducts) {
-    cout << "\nProduse disponibile:\n\n";
+    void displayProductsByCategory( vector<Product*> products, int totalProducts) {
+        cout << "\nProduse disponibile:\n\n";
 
-    int categorySize = totalProducts / 3;
+        int categorySize = totalProducts / 3;
 
-    cout << "VEIOZE:\n";
-    for (int i = 0; i < categorySize; i++) {
-        cout << (i + 1) << ". ";
-        products[i]->display();
-    }
+        cout << "VEIOZE:\n";
+        for (int i = 0; i < categorySize; i++) {
+            cout << (i + 1) << ". ";
+            products[i]->display();
+        }
 
-    cout << "\nLAMPI DE TAVAN:\n";
-    for (int i = categorySize; i < 2 * categorySize; i++) {
-        cout << (i + 1) << ". ";
-        products[i]->display();
-    }
+        cout << "\nLAMPI DE TAVAN:\n";
+        for (int i = categorySize; i < 2 * categorySize; i++) {
+            cout << (i + 1) << ". ";
+            products[i]->display();
+        }
 
-    cout << "\nLAMPI DE PERETE:\n";
-    for (int i = 2 * categorySize; i < totalProducts; i++) {
-        cout << (i + 1) << ". ";
-        products[i]->display();
-    }
-}
-
-void getUserDetails(string& name, string& idnp) {
-    cout << "Introduceti numele: ";
-    getline(cin, name);
-    cout << "Introduceti IDNP-ul: ";
-    getline(cin, idnp);
-}
-
-void handlePromoCode(string& promoCode, bool& promoApplied, Cart& cart) {
-    cout << "Doriti sa introduceti un cod promotional? (da/nu): ";
-    string response;
-    cin >> response;
-
-    if (response == "da") {
-        cout << "Introduceti codul promotional: ";
-        cin >> promoCode;
-
-        // Verificăm dacă codul promoțional este valid
-        if (promoCode == "PROMO2024") {
-            cart.applyDiscount(0.03); // aplicăm reducerea de 3%
-            promoApplied = true;
-            cout << "Cod promotional valid! S-a aplicat o reducere de 3%.\n";
-        } else {
-            cout << "Cod promotional invalid.\n";
+        cout << "\nLAMPI DE PERETE:\n";
+        for (int i = 2 * categorySize; i < totalProducts; i++) {
+            cout << (i + 1) << ". ";
+            products[i]->display();
         }
     }
-}
 
-Product* validateProductChoice(int choice, const vector<Product*>& products) {
-    if (choice < 1 || choice > products.size()) {
-        cout << "Optiune invalida.\n";
-        return nullptr;
+    void getUserDetails(string& name, string& idnp) {
+        cout << "Introduceti numele: ";
+        getline(cin, name);
+        cout << "Introduceti IDNP-ul: ";
+        getline(cin, idnp);
     }
-    return products[choice - 1];
-};
 
-bool validateQuantity(int quantity) {
-    if (quantity <= 0) {
-        cout << "Cantitatea trebuie sa fie pozitiva.\n";
-        return false;
+    void handlePromoCode(string& promoCode, bool& promoApplied, Cart& cart) {
+        cout << "Doriti sa introduceti un cod promotional? (da/nu): ";
+        string response;
+        cin >> response;
+
+        if (response == "da") {
+            cout << "Introduceti codul promotional: ";
+            cin >> promoCode;
+
+            // Verificăm dacă codul promoțional este valid
+            if (promoCode == "PROMO2024") {
+                cart.applyDiscount(0.03); // aplicăm reducerea de 3%
+                promoApplied = true;
+                cout << "Cod promotional valid! S-a aplicat o reducere de 3%.\n";
+            } else {
+                cout << "Cod promotional invalid.\n";
+            }
+        }
     }
-    return true;
-};
 
-bool checkStockAndUpdate(Product* product, int quantity) {
-    if (!product->isInStock(quantity)) {
-        cout << "Stoc insuficient pentru produsul ales.\n";
-        return false;
-    }
-    *product -= quantity; // Chemarea operatorului supraincarcat -=
-    return true;
-};
+    Product* validateProductChoice(int choice, const vector<Product*>& products) {
+        if (choice < 1 || choice > products.size()) {
+            cout << "Optiune invalida.\n";
+            return nullptr;
+        }
+        return products[choice - 1];
+    };
 
-void addToCart(Cart& cart, Product* product, int quantity) {
-    CartItem item(product, quantity);
-    cart += item; // Chemarea operatorului supraincarcat +=
-    cout << "Produsul a fost adaugat in cos.\n";
-};
-
-
-bool checkEmptyCart(const Cart& cart) {
-    if (cart.getTotal() == 0) {
-        cout << "Cosul este gol. Adaugati produse inainte de a finaliza comanda.\n";
+    bool validateQuantity(int quantity) {
+        if (quantity <= 0) {
+            cout << "Cantitatea trebuie sa fie pozitiva.\n";
+            return false;
+        }
         return true;
-    }
-    return false;
-};
+    };
 
-void applyDiscounts(Cart& cart, bool discountCard, bool promoApplied) {
-    if (discountCard && !promoApplied) {
-        cart.applyDiscount(0.15);
-        cout << "S-a aplicat o reducere de 15% pentru cardul de fidelitate.\n";
-    } else if (discountCard && promoApplied) {
-        cart.applyDiscount(0.15);
-        cout << "S-a aplicat reducerea de 15% pentru cardul de fidelitate (după reducerea promoțională).\n";
-    }
-};
-
-void finalizeOrder(Cart& cart, User& user) {
-    cout << "Total de plata: " << fixed << setprecision(2) << cart.getTotal() << " lei\n";
-
-    if (processPayment(cart.getTotal())) {
-        user.updateData(cart.getTotal());
-        cout << "Comanda a fost finalizata cu succes.\n";
-
-        if (cart.getTotal() >= 2000) {
-            cout << "Livrare gratuita! A-ti cumparat la o suma > 2000 lei.\n";
+    bool checkStockAndUpdate(Product* product, int quantity) {
+        if (!product->isInStock(quantity)) {
+            cout << "Stoc insuficient pentru produsul ales.\n";
+            return false;
         }
+        *product -= quantity; // Chemarea operatorului supraincarcat -=
+        return true;
+    };
 
-        cart.clearCart();
-    } else {
-        cout << "Plata a esuat. Incercati din nou.\n";
-    }
+    void addToCart(Cart& cart, Product* product, int quantity) {
+        CartItem item(product, quantity);
+        cart += item; // Chemarea operatorului supraincarcat +=
+        cout << "Produsul a fost adaugat in cos.\n";
+    };
+
+
+    bool checkEmptyCart(const Cart& cart) {
+        if (cart.getTotal() == 0) {
+            cout << "Cosul este gol. Adaugati produse inainte de a finaliza comanda.\n";
+            return true;
+        }
+        return false;
+    };
+
+    void applyDiscounts(Cart& cart, bool discountCard, bool promoApplied) {
+        if (discountCard && !promoApplied) {
+            cart.applyDiscount(0.15);
+            cout << "S-a aplicat o reducere de 15% pentru cardul de fidelitate.\n";
+        } else if (discountCard && promoApplied) {
+            cart.applyDiscount(0.15);
+            cout << "S-a aplicat reducerea de 15% pentru cardul de fidelitate (după reducerea promoțională).\n";
+        }
+    };
+
+    void finalizeOrder(Cart& cart, User& user) {
+        cout << "Total de plata: " << fixed << setprecision(2) << cart.getTotal() << " lei\n";
+
+        if (processPayment(cart.getTotal())) {
+            user.updateData(cart.getTotal());
+            cout << "Comanda a fost finalizata cu succes.\n";
+
+            if (cart.getTotal() >= 2000) {
+                cout << "Livrare gratuita! A-ti cumparat la o suma > 2000 lei.\n";
+            }
+
+            cart.clearCart();
+        } else {
+            cout << "Plata a esuat. Incercati din nou.\n";
+        }
+    };
 };
-
 
 int main() {
-    vector<TableLamp> tableLamps; addTableLampsToCart(tableLamps);
-    vector<CeilingLamp> ceilingLamps; addCeilingLampsToCart(ceilingLamps);
-    vector<WallLamp> wallLamps; addWallLampsToCart( wallLamps);
+    Executor execute;
+    vector<TableLamp> tableLamps; execute.addTableLampsToCart(tableLamps);
+    vector<CeilingLamp> ceilingLamps; execute.addCeilingLampsToCart(ceilingLamps);
+    vector<WallLamp> wallLamps; execute.addWallLampsToCart( wallLamps);
     vector<Product*> products;
 
     for(auto& lamp : tableLamps) {products.push_back(&lamp); }
     for(auto& lamp : ceilingLamps) {products.push_back(&lamp); }
     for(auto& lamp : wallLamps) {products.push_back(&lamp); }
 
-    string name, idnp; getUserDetails(name, idnp);
+    string name, idnp; execute.getUserDetails(name, idnp);
     User user(name, idnp); user.loadData();
     Cart cart;
     bool discountCard = user.eligibleForDiscount();
@@ -456,35 +459,31 @@ int main() {
         cout << "Felicitari! Va calificati pentru un card de reducere cu 15% pentru cumparaturile viitoare.\n";
     }
  int option;
-    do {displayMenu(); cin >> option;
+
+    do {execute.displayMenu(); cin >> option;
         switch (option) {
             case 1:
-                displayProductsByCategory(products, 30);
-                break;
+                execute.displayProductsByCategory(products, 30); break;
             case 2: {
                 int choice, quantity; cout << "Introduceti numarul produsului (1-30): "; cin >> choice;
-                Product* selectedProduct = validateProductChoice(choice, products);
+                Product* selectedProduct = execute.validateProductChoice(choice, products);
                 if (!selectedProduct) break;
                 cout << "Introduceti cantitatea: "; cin >> quantity;
-                if (!validateQuantity(quantity)) break;
-                if (!checkStockAndUpdate(selectedProduct, quantity)) break;
-                addToCart(cart, selectedProduct, quantity);
-                break;
+                if (!execute.validateQuantity(quantity)) break;
+                if (!execute.checkStockAndUpdate(selectedProduct, quantity)) break;
+                execute.addToCart(cart, selectedProduct, quantity); break;
             }
             case 3:
-                cout << cart;
-                break;
+                cout << cart; break;
             case 4: {
-                if (checkEmptyCart(cart)) break;
+                if (execute.checkEmptyCart(cart)) break;
                 string promoCode; bool promoApplied = false;
-                handlePromoCode(promoCode, promoApplied, cart);
-                applyDiscounts(cart, discountCard, promoApplied);
-                finalizeOrder(cart, user);
-                break;
+                execute.handlePromoCode(promoCode, promoApplied, cart);
+                execute.applyDiscounts(cart, discountCard, promoApplied);
+                execute.finalizeOrder(cart, user); break;
             }
             case 5:
-                cout << "Multumim pentru vizita!\n";
-            break;
+                cout << "Multumim pentru vizita!\n"; break;
             default:
                 cout << "Optiune invalida. Va rugam sa selectati o optiune valida.\n";
             break;
