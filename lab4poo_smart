@@ -444,16 +444,10 @@ int main() {
     vector<WallLamp> wallLamps; addWallLampsToCart( wallLamps);
     vector<Product*> products;
 
-    for(auto& lamp : tableLamps) {
-        products.push_back(&lamp);
-    }
-    for(auto& lamp : ceilingLamps) {
-        products.push_back(&lamp);
-    }
-    for(auto& lamp : wallLamps) {
-        products.push_back(&lamp);
-    }
-    
+    for(auto& lamp : tableLamps) {products.push_back(&lamp); }
+    for(auto& lamp : ceilingLamps) {products.push_back(&lamp); }
+    for(auto& lamp : wallLamps) {products.push_back(&lamp); }
+
     string name, idnp; getUserDetails(name, idnp);
     User user(name, idnp); user.loadData();
     Cart cart;
@@ -462,24 +456,18 @@ int main() {
         cout << "Felicitari! Va calificati pentru un card de reducere cu 15% pentru cumparaturile viitoare.\n";
     }
  int option;
-    do {displayMenu();
-        cin >> option;
+    do {displayMenu(); cin >> option;
         switch (option) {
             case 1:
                 displayProductsByCategory(products, 30);
                 break;
             case 2: {
                 int choice, quantity; cout << "Introduceti numarul produsului (1-30): "; cin >> choice;
-
                 Product* selectedProduct = validateProductChoice(choice, products);
                 if (!selectedProduct) break;
-
                 cout << "Introduceti cantitatea: "; cin >> quantity;
-
                 if (!validateQuantity(quantity)) break;
-
                 if (!checkStockAndUpdate(selectedProduct, quantity)) break;
-
                 addToCart(cart, selectedProduct, quantity);
                 break;
             }
@@ -488,12 +476,10 @@ int main() {
                 break;
             case 4: {
                 if (checkEmptyCart(cart)) break;
-                string promoCode;
-                bool promoApplied = false;
+                string promoCode; bool promoApplied = false;
                 handlePromoCode(promoCode, promoApplied, cart);
                 applyDiscounts(cart, discountCard, promoApplied);
                 finalizeOrder(cart, user);
-
                 break;
             }
             case 5:
@@ -504,6 +490,5 @@ int main() {
             break;
         }
     } while (option != 5);
-
     return 0;
 }
