@@ -6,14 +6,13 @@
 #include <sstream>
 
 using namespace std;
-
 class Product {
-
 protected:
     string name;
     int stock;
 
 public:
+
     double price;
     Product() {}
     Product(string name, double price, int stock) : name(name), price(price), stock(stock) {}
@@ -21,86 +20,80 @@ public:
     string getName() const { return name; }
     int getStock() const { return stock; }
 
-    // Operator overloading == pentru compararea produselor dupa nume
+    // Operator overloading == pentru compararea produselor după nume
     bool operator==(const Product& other) const {
         return name == other.name;
     }
 
-    // Operator overloading -= pentru scaderea stocului unui produs
+    // Operator overloading -= pentru scăderea stocului unui produs
     void operator-=(int quantity) {
         stock = (stock >= quantity) ? stock - quantity : 0;
     }
 
-    virtual void display() const {
-        cout << "Produs: " << name << ", Pret: " << fixed << setprecision(2) << price << " lei, Stoc: " << stock << endl;
+
+    virtual void display() = 0;
+    virtual void displayWithoutStock() = 0;
+    virtual bool isInStock(int quantity) = 0;
+
+
+    virtual ~Product() {}
+
+};
+
+class TableLamp : public  Product {
+public:
+    TableLamp(string name, double price, int stock) : Product(name, price, stock) {}
+
+    void display() override {
+        cout << "Veioză - ";
+        cout << "Produs: " << name << ", Preț: " << fixed << setprecision(2) << price << " lei, Stoc: " << stock << endl;
     }
 
-    virtual void displayWithoutStock() const {
-        cout << "Produs: " << name << ", Pret: " << fixed << setprecision(2) << price << " lei" << endl;
+    void displayWithoutStock() override {
+        cout << "Veioză - ";
+        cout << "Produs: " << name << ", Preț: " << fixed << setprecision(2) << price << " lei" << endl;
     }
 
-    virtual bool isInStock(int quantity) const {
+    bool isInStock(int quantity) override {
         return stock >= quantity;
     }
 };
 
-class TableLamp : virtual public Product{
-public:
-    TableLamp(string name, double price, int stock) : Product(name, price, stock) {}
-
-    void displayLampaVeioza() const  {
-        cout << "Veioza - ";
-        Product::display();
-    }
-
-    void displayWithoutStockVeioza() const {
-        cout << "Veioza - ";
-        Product::displayWithoutStock();
-    }
-};
-
-bool IsInStock(const Product& product,int quantity) {
-    product.isInStock(quantity);
-}
-
-
-class CeilingLamp : virtual public Product {
+class CeilingLamp : public  Product {
 public:
     CeilingLamp(string name, double price, int stock) : Product(name, price, stock) {}
 
-    void displayLampaTavan() const {
+    void display() override {
         cout << "Lampa de Tavan - ";
-        Product::display();
+        cout << "Produs: " << name << ", Preț: " << fixed << setprecision(2) << price << " lei, Stoc: " << stock << endl;
     }
 
-    void displayWithoutStockTavan() const {
+    void displayWithoutStock() override {
         cout << "Lampa de Tavan - ";
-        Product::displayWithoutStock();
+        cout << "Produs: " << name << ", Preț: " << fixed << setprecision(2) << price << " lei" << endl;
     }
 
-
-    bool IsInStock(const Product& product, int quantity) {
-        product.isInStock(quantity);
+    bool isInStock(int quantity) override {
+        return stock >= quantity;
     }
 };
 
-class WallLamp : virtual  public Product {
+class WallLamp :  public  Product {
 public:
     WallLamp(string name, double price, int stock) : Product(name, price, stock) {}
 
-    void displayLampaPerete() const {
+    void display() override {
         cout << "Lampa de Perete - ";
-        Product::display();
+        cout << "Produs: " << name << ", Preț: " << fixed << setprecision(2) << price << " lei, Stoc: " << stock << endl;
     }
 
-    void displayWithoutStockPerete() const  {
+    void displayWithoutStock() override {
         cout << "Lampa de Perete - ";
-        Product::displayWithoutStock();
+        cout << "Produs: " << name << ", Preț: " << fixed << setprecision(2) << price << " lei" << endl;
     }
 
-
-    void IsInStock(const Product& product, int quantity) {
-        product.isInStock(quantity);
+    bool isInStock(int quantity) override {
+        return stock >= quantity;
     }
 };
 
@@ -111,12 +104,13 @@ public:
     CartItem(Product* product, int quantity) : product(product), quantity(quantity) {}
 };
 
-class Cart:public WallLamp, public CeilingLamp, public TableLamp  {
+class Cart: public  WallLamp, public  CeilingLamp, public  TableLamp  {
     vector<CartItem> items;
     double total;
 
 public:
     Cart() : total(0), WallLamp("", 0, 0), CeilingLamp("", 0, 0), TableLamp("", 0, 0) {}
+
 
     // Operator overloading += pentru adaugarea unui produs in cos
     Cart& operator+=(CartItem item) {
@@ -126,6 +120,7 @@ public:
                 i.quantity += item.quantity;
                 found = true;
                 break;
+
             }
         }
         if (!found) {
@@ -134,6 +129,7 @@ public:
         total += item.product->price * item.quantity;
         return *this;
     }
+
 
     friend ostream& operator<<(ostream& os, const Cart& cart) {
         os << "\nCosul dumneavoastra:\n";
@@ -157,7 +153,9 @@ public:
         items.clear();
         total = 0;
     }
+
 };
+
 
 class User {
 
@@ -310,29 +308,31 @@ public:
         wallLamps.push_back(   WallLamp("Aplica_Minimalist", 209.99, 10));
     };
 
-    void displayProductsByCategory( vector<Product*> products, int totalProducts) {
+    void displayProductsByCategory(vector<Product*> products) {
         cout << "\nProduse disponibile:\n\n";
 
-        int categorySize = totalProducts / 3;
-
         cout << "VEIOZE:\n";
-        for (int i = 0; i < categorySize; i++) {
-            cout << (i + 1) << ". ";
-            products[i]->display();
+        for (Product* product : products) {
+            if (dynamic_cast<TableLamp*>(product)) {
+                product->display();
+            }
         }
 
         cout << "\nLAMPI DE TAVAN:\n";
-        for (int i = categorySize; i < 2 * categorySize; i++) {
-            cout << (i + 1) << ". ";
-            products[i]->display();
+        for (Product* product : products) {
+            if (dynamic_cast<CeilingLamp*>(product)) {
+                product->display();
+            }
         }
 
         cout << "\nLAMPI DE PERETE:\n";
-        for (int i = 2 * categorySize; i < totalProducts; i++) {
-            cout << (i + 1) << ". ";
-            products[i]->display();
+        for (Product* product : products) {
+            if (dynamic_cast<WallLamp*>(product)) {
+                product->display();
+            }
         }
     };
+
 
     void getUserDetails(string& name, string& idnp) {
         cout << "Introduceti numele: ";
@@ -452,7 +452,7 @@ int main() {
     do {execute.displayMenu(); cin >> option;
         switch (option) {
             case 1:
-                execute.displayProductsByCategory(products, 30); break;
+                execute.displayProductsByCategory(products); break;
             case 2: {
                 int choice, quantity; cout << "Introduceti numarul produsului (1-30): "; cin >> choice;
                 Product* selectedProduct = execute.validateProductChoice(choice, products);
