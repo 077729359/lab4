@@ -6,6 +6,8 @@
 #include <sstream>
 
 using namespace std;
+
+
 class Product {
 protected:
     string name;
@@ -37,6 +39,7 @@ public:
 
 
     virtual ~Product() {}
+    friend class Cart;
 
 };
 
@@ -57,6 +60,7 @@ public:
     bool isInStock(int quantity) override {
         return stock >= quantity;
     }
+    friend class Cart;
 };
 
 class CeilingLamp : public  Product {
@@ -76,6 +80,7 @@ public:
     bool isInStock(int quantity) override {
         return stock >= quantity;
     }
+    friend class Cart;
 };
 
 class WallLamp :  public  Product {
@@ -95,22 +100,67 @@ public:
     bool isInStock(int quantity) override {
         return stock >= quantity;
     }
+    friend class Cart;
 };
 
 class CartItem{
 public:
     Product* product;
     int quantity;
-    CartItem(Product* product, int quantity) : product(product), quantity(quantity) {}
+    CartItem() : product(nullptr), quantity(0) {};
+    CartItem(Product* product, int quantity) : product(product), quantity(quantity) {};
+    CartItem(const CartItem& other) : product(other.product), quantity(other.quantity) {};
+
+     void addTableLampsToCart(vector<TableLamp>& tableLamps) {
+
+        tableLamps.push_back(TableLamp("Veioza_Modern", 299.99, 10)),
+        tableLamps.push_back(TableLamp("Veioza_Clasic", 249.99, 10)),
+        tableLamps.push_back(TableLamp("Veioza_Birou_LED", 399.99, 10)),
+        tableLamps.push_back(TableLamp("Veioza_Vintage", 349.99, 10)),
+        tableLamps.push_back(TableLamp("Veioza_Smart", 499.99, 10)),
+        tableLamps.push_back(TableLamp("Veioza_Copii", 199.99, 10)),
+        tableLamps.push_back(TableLamp("Veioza_Dormitor", 279.99, 10)),
+        tableLamps.push_back(TableLamp("Veioza_Studio", 329.99, 10)),
+        tableLamps.push_back(TableLamp("Veioza_Artistica", 449.99, 10)),
+        tableLamps.push_back(TableLamp("Veioza_Minimalist", 289.99, 10));
+    };
+
+    void addCeilingLampsToCart(vector<CeilingLamp>& ceilingLamps) {
+
+        ceilingLamps.push_back( CeilingLamp("Lustra_Cristal", 999.99, 10)),
+        ceilingLamps.push_back(CeilingLamp("Lustra_Moderna", 799.99, 10)),
+       ceilingLamps.push_back(CeilingLamp("Candelabru_Elegant", 1299.99, 10)),
+       ceilingLamps.push_back( CeilingLamp("Plafoniera_LED", 599.99, 10)),
+        ceilingLamps.push_back(CeilingLamp("Lustra_Industrial", 899.99, 10)),
+        ceilingLamps.push_back(CeilingLamp("Lustra_Vintage", 849.99, 10)),
+        ceilingLamps.push_back(CeilingLamp("Lustra_Smart", 1199.99, 10)),
+        ceilingLamps.push_back(CeilingLamp("Plafoniera_Baie", 399.99, 10)),
+        ceilingLamps.push_back(CeilingLamp("Lustra_Living", 949.99, 10)),
+        ceilingLamps.push_back( CeilingLamp("Lustra_Minimalist", 699.99, 10));
+    };
+
+    void addWallLampsToCart(vector<WallLamp>& wallLamps) {
+
+        wallLamps.push_back(  WallLamp("Aplica_Moderna", 199.99, 10)),
+        wallLamps.push_back( WallLamp("Aplica_LED", 249.99, 10)),
+       wallLamps.push_back( WallLamp("Aplica_Clasica", 179.99, 10)),
+        wallLamps.push_back( WallLamp("Aplica_Vintage", 229.99, 10)),
+        wallLamps.push_back( WallLamp("Aplica_Industrial", 259.99, 10)),
+        wallLamps.push_back(WallLamp("Aplica_Exterior", 299.99, 10)),
+        wallLamps.push_back(  WallLamp("Aplica_Baie", 189.99, 10)),
+        wallLamps.push_back(WallLamp("Aplica_Oglinda", 219.99, 10)),
+        wallLamps.push_back(WallLamp("Aplica_Smart", 349.99, 10)),
+        wallLamps.push_back(   WallLamp("Aplica_Minimalist", 209.99, 10));
+    };
 };
 
-class Cart: public  WallLamp, public  CeilingLamp, public  TableLamp  {
+class Cart: virtual public CartItem {
     vector<CartItem> items;
     double total;
 
 public:
-    Cart() : total(0), WallLamp("", 0, 0), CeilingLamp("", 0, 0), TableLamp("", 0, 0) {}
-
+    Cart() : total(0.0) {};
+    Cart(const Cart& other) : items(other.items), total(other.total) {};
 
     // Operator overloading += pentru adaugarea unui produs in cos
     Cart& operator+=(CartItem item) {
@@ -157,7 +207,7 @@ public:
 };
 
 
-class User {
+class User: virtual public CartItem {
 
     string name;
     string idnp;
@@ -165,7 +215,10 @@ class User {
     double totalSpent;
 
 public:
-    User(string name, string idnp) : name(name), idnp(idnp), visits(0), totalSpent(0) {}
+    User() : name(""), idnp(""), visits(0), totalSpent(0.0) {};
+    User(string name, string idnp) : name(name), idnp(idnp), visits(0), totalSpent(0.0) {};
+    User(const User& other) : name(other.name), idnp(other.idnp),
+                               visits(other.visits), totalSpent(other.totalSpent) {};
 
     void loadData() {
         ifstream file("users.txt");
@@ -235,8 +288,14 @@ public:
     };
 };
 
-class Executor {
+class Executor: public User, public Cart {
 public:
+
+    Executor() : User(), Cart() {};
+    Executor(string name, string idnp) : User(name, idnp), Cart() {};
+    Executor(const Executor& other) : User(other), Cart(other) {};
+
+
     void displayMenu() {
         cout << "\n--- Meniu Magazin de Lampi Electrice ---\n";
         cout << "1. Vizualizare produse\n";
@@ -263,49 +322,6 @@ public:
             cout << "Date card invalide.\n";
             return false;
         }
-    };
-
-
-    void addTableLampsToCart(vector<TableLamp>& tableLamps) {
-
-        tableLamps.push_back(TableLamp("Veioza_Modern", 299.99, 10)),
-        tableLamps.push_back(TableLamp("Veioza_Clasic", 249.99, 10)),
-        tableLamps.push_back(TableLamp("Veioza_Birou_LED", 399.99, 10)),
-        tableLamps.push_back(TableLamp("Veioza_Vintage", 349.99, 10)),
-        tableLamps.push_back(TableLamp("Veioza_Smart", 499.99, 10)),
-        tableLamps.push_back(TableLamp("Veioza_Copii", 199.99, 10)),
-        tableLamps.push_back(TableLamp("Veioza_Dormitor", 279.99, 10)),
-        tableLamps.push_back(TableLamp("Veioza_Studio", 329.99, 10)),
-        tableLamps.push_back(TableLamp("Veioza_Artistica", 449.99, 10)),
-        tableLamps.push_back(TableLamp("Veioza_Minimalist", 289.99, 10));
-    };
-
-    void addCeilingLampsToCart(vector<CeilingLamp>& ceilingLamps) {
-
-        ceilingLamps.push_back( CeilingLamp("Lustra_Cristal", 999.99, 10)),
-        ceilingLamps.push_back(CeilingLamp("Lustra_Moderna", 799.99, 10)),
-       ceilingLamps.push_back(CeilingLamp("Candelabru_Elegant", 1299.99, 10)),
-       ceilingLamps.push_back( CeilingLamp("Plafoniera_LED", 599.99, 10)),
-        ceilingLamps.push_back(CeilingLamp("Lustra_Industrial", 899.99, 10)),
-        ceilingLamps.push_back(CeilingLamp("Lustra_Vintage", 849.99, 10)),
-        ceilingLamps.push_back(CeilingLamp("Lustra_Smart", 1199.99, 10)),
-        ceilingLamps.push_back(CeilingLamp("Plafoniera_Baie", 399.99, 10)),
-        ceilingLamps.push_back(CeilingLamp("Lustra_Living", 949.99, 10)),
-        ceilingLamps.push_back( CeilingLamp("Lustra_Minimalist", 699.99, 10));
-    };
-
-    void addWallLampsToCart(vector<WallLamp>& wallLamps) {
-
-        wallLamps.push_back(  WallLamp("Aplica_Moderna", 199.99, 10)),
-        wallLamps.push_back( WallLamp("Aplica_LED", 249.99, 10)),
-       wallLamps.push_back( WallLamp("Aplica_Clasica", 179.99, 10)),
-        wallLamps.push_back( WallLamp("Aplica_Vintage", 229.99, 10)),
-        wallLamps.push_back( WallLamp("Aplica_Industrial", 259.99, 10)),
-        wallLamps.push_back(WallLamp("Aplica_Exterior", 299.99, 10)),
-        wallLamps.push_back(  WallLamp("Aplica_Baie", 189.99, 10)),
-        wallLamps.push_back(WallLamp("Aplica_Oglinda", 219.99, 10)),
-        wallLamps.push_back(WallLamp("Aplica_Smart", 349.99, 10)),
-        wallLamps.push_back(   WallLamp("Aplica_Minimalist", 209.99, 10));
     };
 
     void displayProductsByCategory(vector<Product*> products) {
